@@ -15,6 +15,8 @@ public class Pizza {
     private String name;
     private String description;
     private BigDecimal price;
+    private String image_link;
+
 
     public Integer getId() {
         return id;
@@ -42,5 +44,13 @@ public class Pizza {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public String getImage_link() {
+        return image_link;
+    }
+
+    public void setImage_link(String image_link) {
+        this.image_link = image_link;
     }
 }
