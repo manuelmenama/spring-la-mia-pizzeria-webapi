@@ -16,6 +16,10 @@ public class Pizza {
     private String description;
     private BigDecimal price;
 
+    public Integer getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

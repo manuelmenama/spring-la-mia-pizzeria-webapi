@@ -22,13 +22,14 @@
                             <th scope="col">Nome della pizza</th>
                             <th scope="col">Descrizione</th>
                             <th scope="col">Prezzo</th>
-
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:if="${!pizzaList.isEmpty()}" th:object="pizzaList">
+                        <tr th:if="${!pizzaList.isEmpty()}" th:each="pizza : ${pizzaList}" th:object="${pizza}">
                             <td th:text="*{id}"></td>
                             <td th:text="*{name}"></td>
+                            <td th:text="*{description}"></td>
                             <td th:text="*{price}"></td>
                         </tr>
                         <tr th:if="${pizzaList.isEmpty()}">
