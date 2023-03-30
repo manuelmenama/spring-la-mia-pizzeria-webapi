@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<th:block th:fragment="navbar(current)">
+<th:block th:fragment="navbar(current, showSearch)">
     <nav class="navbar navbar-expand-lg bg-secondary">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
@@ -23,9 +23,14 @@
                         <a class="nav-link" th:classAppend="${current == 'pizzas'} ? my-active : not-active" th:href="@{/pizzas}">Pizzas</a>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-light" type="submit">Search</button>
+                <form
+                    th:if="${showSearch}"
+                    class="d-flex"
+                    role="search"
+                    method="get"
+                    th:action="@{/pizzas}">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                    <button class="btn btn-outline-light" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
             </div>
         </div>

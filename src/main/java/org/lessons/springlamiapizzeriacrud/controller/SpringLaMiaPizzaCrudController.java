@@ -33,7 +33,7 @@ public class SpringLaMiaPizzaCrudController {
 
         } else {
             pizzaList = pizzaRepository.findByNameContainingIgnoreCase(keyword.get());
-
+            model.addAttribute("keyword", keyword);
         }
 
         model.addAttribute("pizzaList", pizzaList);
