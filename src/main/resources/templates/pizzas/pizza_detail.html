@@ -8,19 +8,23 @@
 
     <link th:replace="~{/pizzas/fragments/fragment_head :: style_resources}">
 
-    <title>Detail of ...</title>
+    <title>Detail of [[${pizzaSelected.name}]]</title>
 </head>
 <body>
 
-<div class="container">
+<th:block th:replace="~{/pizzas/fragments/fragment_navbar :: navbar('pizzas')}"></th:block>
+
+
+<div class="container mt-5">
     <div class="row">
         <div class="col">
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
+            <div class="card" th:object="${pizzaSelected}">
+                <img th:src="*{image_link}" class="card-img-top my-card-image" th:alt="*{name}">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-title" th:text="*{name}"></h5>
+                    <p class="card-text" th:text="*{description}"></p>
+                    <p class="card-text">Prezzo: <strong>[[*{price}]]</strong> €</p>
+                    <a th:href="@{/pizzas}" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i></a>
                 </div>
             </div>
         </div>

@@ -1,3 +1,24 @@
+img.my-logo{
+    height: 50px;
+}
+
 table img.my-thumb{
     width: 200px;
+}
+
+img.my-card-image{
+    height: 300px;
+    object-fit: cover;
+}
+
+nav ul li a.nav-link{
+    color: white;
+}
+
+nav ul li a.nav-link:hover{
+    color: #6f6f6f;
+}
+
+nav div.container-fluid ul li a.my-active{
+    color: #cfcfcf;
 }

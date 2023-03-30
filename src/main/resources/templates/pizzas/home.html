@@ -12,7 +12,9 @@
 </head>
 <body>
 
-    <div class="container">
+    <th:block th:replace="~{/pizzas/fragments/fragment_navbar :: navbar('pizzas')}"></th:block>
+
+    <div class="container mt-5">
         <div class="row">
             <div class="col">
                 <table class="table">
@@ -22,7 +24,6 @@
                             <th scope="col">Nome della pizza</th>
                             <th scope="col">Descrizione</th>
                             <th scope="col">Prezzo</th>
-                            <th scope="col">Miniatura</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -33,11 +34,8 @@
                             <td th:text="*{description}"></td>
                             <td>[[*{price}]] €</td>
                             <td>
-                                <img th:src="*{image_link}" class="img-thumbnail my-thumb" alt="...">
-                            </td>
-                            <td>
-                                <a th:href="|/pizzas/pizza_detail|" class="btn btn-primary">
-                                    VIEW
+                                <a th:href="|/pizzas/pizza_detail/*{id}|" class="btn btn-primary">
+                                    <i class="fa-solid fa-pizza-slice"></i>
                                 </a>
                             </td>
                         </tr>
