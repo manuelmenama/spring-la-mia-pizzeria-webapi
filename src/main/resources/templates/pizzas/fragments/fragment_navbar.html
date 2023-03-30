@@ -22,6 +22,9 @@
                     <li class="nav-item">
                         <a class="nav-link" th:classAppend="${current == 'pizzas'} ? my-active : not-active" th:href="@{/pizzas}">Pizzas</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:classAppend="${current == 'advanced'} ? my-active : not-active" th:href="@{/advanced_search}">Advanced</a>
+                    </li>
                 </ul>
                 <form
                     th:if="${showSearch}"
