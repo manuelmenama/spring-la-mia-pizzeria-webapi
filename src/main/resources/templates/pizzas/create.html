@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link th:replace="~{/pizzas/fragments/fragment_head :: style_resources}">
+
+    <title>Add new pizza</title>
+</head>
+<body>
+
+    <th:block th:replace="~{/pizzas/fragments/fragment_navbar :: navbar('', true)}"></th:block>
+
+    <div class="container mt-5">
+
+        <h1>
+            Add new one!
+        </h1>
+
+        <form
+                method="post"
+                th:object="${pizza}"
+                th:action="@{/pizzas/create}"
+                class="row gy-3">
+
+            <div class="col-6">
+                <label for="name">Pizza name</label>
+                <input type="text" name="name" id="name" class="form-control"  th:field="*{name}">
+            </div>
+
+            <div class="col-6">
+                <label for="price">Price</label>
+                <input  type="number" step="0.01" name="price" id="price" class="form-control" th:field="*{price}">
+            </div>
+
+            <div class="col-12">
+                <label for="link-image">Image link</label>
+                <input type="text" id="link-image" class="form-control"  th:field="*{imageLink}">
+            </div>
+
+            <div class="col-12">
+                <label for="description">Description</label>
+                <textarea id="description" rows="3" class="form-control"  th:field="*{description}"></textarea>
+            </div>
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a href="#" class="btn btn-danger">Cancel</a>
+            </div>
+
+
+        </form>
+    </div>
+
+
+</body>
+</html>

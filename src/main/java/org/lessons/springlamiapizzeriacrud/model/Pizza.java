@@ -1,8 +1,12 @@
 package org.lessons.springlamiapizzeriacrud.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "pizzas")
@@ -12,11 +16,32 @@ public class Pizza {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotEmpty
     private String name;
+    @Lob
     private String description;
+    @NotNull
     private BigDecimal price;
-    private String image_link;
+    @Column(name = "image_link")
+    private String imageLink;
 
+    @Column(name="created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    public Pizza() {
+    }
+
+    public Pizza(String name, String description, BigDecimal price, String imageLink, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.imageLink = imageLink;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
     public Integer getId() {
         return id;
@@ -46,11 +71,29 @@ public class Pizza {
         this.price = price;
     }
 
-    public String getImage_link() {
-        return image_link;
+    public String getImageLink() {
+        return imageLink;
     }
 
-    public void setImage_link(String image_link) {
-        this.image_link = image_link;
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+
 }

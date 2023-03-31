@@ -6,13 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.awt.print.Book;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +36,7 @@ public class SpringLaMiaPizzaCrudController {
 
         model.addAttribute("pizzaList", pizzaList);
 
-        return "pizzas/home";
+        return "pizzas/index";
     }
 
     @GetMapping("/pizza_detail/{id}")
@@ -53,6 +51,26 @@ public class SpringLaMiaPizzaCrudController {
         }
 
 
+    }
+
+    @GetMapping("/create")
+    public String create(Model model) {
+        model.addAttribute("pizza", new Pizza());
+        return "pizzas/create";
+    }
+
+    @PostMapping("/create")
+    public String store(@ModelAttribute("pizza") Pizza formPizza) {
+        Pizza pizzaToStorage = new Pizza();
+        pizzaToStorage.setName(formPizza.getName());
+        pizzaToStorage.setPrice(formPizza.getPrice());
+        pizzaToStorage.setImageLink(formPizza.getImageLink());
+        pizzaToStorage.setDescription(formPizza.getDescription());
+        pizzaToStorage.setCreatedAt(LocalDateTime.now());
+        pizzaToStorage.setUpdatedAt(LocalDateTime.now());
+
+        pizzaRepository.save(pizzaToStorage);
+        return "redirect:/pizzas/pizza_detail/" + pizzaToStorage.getId().toString();
     }
 
 

@@ -15,6 +15,12 @@
     <th:block th:replace="~{/pizzas/fragments/fragment_navbar :: navbar('pizzas', true)}"></th:block>
 
     <div class="container mt-5">
+
+        <div class="d-flex justify-content-between">
+            <h1>Pizza list</h1>
+            <a th:href="@{/pizzas/create}" class="btn btn-primary align-self-center"><i class="fa-solid fa-plus"></i></a>
+        </div>
+
         <div class="row">
             <div class="col">
                 <table class="table">
