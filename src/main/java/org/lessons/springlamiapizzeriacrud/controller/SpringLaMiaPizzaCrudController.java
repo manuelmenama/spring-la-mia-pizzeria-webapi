@@ -3,6 +3,7 @@ package org.lessons.springlamiapizzeriacrud.controller;
 import jakarta.validation.Valid;
 import org.lessons.springlamiapizzeriacrud.model.Pizza;
 import org.lessons.springlamiapizzeriacrud.repository.PizzaRepository;
+import org.lessons.springlamiapizzeriacrud.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,9 @@ public class SpringLaMiaPizzaCrudController {
 
     @Autowired
     PizzaRepository pizzaRepository;
+
+    @Autowired
+    PizzaService pizzaService;
 
     @GetMapping
     public String home(Model model, @RequestParam(name = "q") Optional<String> keyword) {
@@ -69,16 +73,9 @@ public class SpringLaMiaPizzaCrudController {
             return "/pizzas/create";
         }
 
-        Pizza pizzaToStorage = new Pizza();
-        pizzaToStorage.setName(formPizza.getName());
-        pizzaToStorage.setPrice(formPizza.getPrice());
-        pizzaToStorage.setImageLink(formPizza.getImageLink());
-        pizzaToStorage.setDescription(formPizza.getDescription());
-        pizzaToStorage.setCreatedAt(LocalDateTime.now());
-        pizzaToStorage.setUpdatedAt(LocalDateTime.now());
+        pizzaService.createPizza(formPizza);
 
-        pizzaRepository.save(pizzaToStorage);
-        return "redirect:/pizzas/pizza_detail/" + pizzaToStorage.getId().toString();
+        return "redirect:/pizzas";
     }
 
 
