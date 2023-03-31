@@ -26,14 +26,30 @@
                 th:action="@{/pizzas/create}"
                 class="row gy-3">
 
+            <div th:if="${#fields.hasAnyErrors()}" class="alert alert-warning">
+                <ul>
+                    <li th:each="error : ${#fields.errors()}" th:text="${error}"></li>
+                </ul>
+            </div>
+
             <div class="col-6">
                 <label for="name">Pizza name</label>
-                <input type="text" name="name" id="name" class="form-control"  th:field="*{name}">
+                <input type="text" name="name" id="name" class="form-control"  th:field="*{name}" th:errorClass="is-invalid">
+                <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('name')}" th:text="${error}"></li>
+                    </ul>
+                </div>
             </div>
 
             <div class="col-6">
                 <label for="price">Price</label>
-                <input  type="number" step="0.01" name="price" id="price" class="form-control" th:field="*{price}">
+                <input  type="number" step="0.01" name="price" id="price" class="form-control" th:field="*{price}" th:errorClass="is-invalid">
+                <div th:if="${#fields.hasErrors('price')}" class="invalid-feedback">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('price')}" th:text="${error}"></li>
+                    </ul>
+                </div>
             </div>
 
             <div class="col-12">

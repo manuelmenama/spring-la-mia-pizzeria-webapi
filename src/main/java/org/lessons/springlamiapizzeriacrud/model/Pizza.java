@@ -3,6 +3,7 @@ package org.lessons.springlamiapizzeriacrud.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -16,12 +17,14 @@ public class Pizza {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty
+    @NotEmpty(message = "Il nome non può essere vuoto.")
     private String name;
     @Lob
     private String description;
-    @NotNull
+    @NotNull(message = "Il prezzo non può essere nullo")
+    @Positive(message = "Il prezzo deve essere positivo.")
     private BigDecimal price;
+
     @Column(name = "image_link")
     private String imageLink;
 

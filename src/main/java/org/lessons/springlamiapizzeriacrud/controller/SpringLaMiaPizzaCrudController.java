@@ -1,11 +1,13 @@
 package org.lessons.springlamiapizzeriacrud.controller;
 
+import jakarta.validation.Valid;
 import org.lessons.springlamiapizzeriacrud.model.Pizza;
 import org.lessons.springlamiapizzeriacrud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -60,7 +62,13 @@ public class SpringLaMiaPizzaCrudController {
     }
 
     @PostMapping("/create")
-    public String store(@ModelAttribute("pizza") Pizza formPizza) {
+    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza,
+                        BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "/pizzas/create";
+        }
+
         Pizza pizzaToStorage = new Pizza();
         pizzaToStorage.setName(formPizza.getName());
         pizzaToStorage.setPrice(formPizza.getPrice());
