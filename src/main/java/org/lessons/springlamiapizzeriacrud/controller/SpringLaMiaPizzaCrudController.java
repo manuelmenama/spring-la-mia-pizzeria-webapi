@@ -1,6 +1,7 @@
 package org.lessons.springlamiapizzeriacrud.controller;
 
 import jakarta.validation.Valid;
+import org.lessons.springlamiapizzeriacrud.exceptions.BookNotFoundException;
 import org.lessons.springlamiapizzeriacrud.model.Pizza;
 import org.lessons.springlamiapizzeriacrud.repository.PizzaRepository;
 import org.lessons.springlamiapizzeriacrud.service.PizzaService;
@@ -21,8 +22,6 @@ import java.util.Optional;
 @RequestMapping("/pizzas")
 public class SpringLaMiaPizzaCrudController {
 
-    @Autowired
-    PizzaRepository pizzaRepository;
 
     @Autowired
     PizzaService pizzaService;
@@ -33,10 +32,10 @@ public class SpringLaMiaPizzaCrudController {
         List<Pizza> pizzaList;
 
         if(keyword.isEmpty()) {
-            pizzaList = pizzaRepository.findAll();
+            pizzaList = pizzaService.getAllPizzas();
 
         } else {
-            pizzaList = pizzaRepository.findByNameContainingIgnoreCase(keyword.get());
+            pizzaList = pizzaService.getSearchedPizzas(keyword.get());
             model.addAttribute("keyword", keyword);
         }
 
@@ -48,13 +47,22 @@ public class SpringLaMiaPizzaCrudController {
     @GetMapping("/pizza_detail/{id}")
     public String pizza(Model model, @PathVariable(name = "id", required = false) int id){
 
-        Optional<Pizza> p = pizzaRepository.findById(id);
+        try {
+            Pizza pizza = pizzaService.getPizzaById(id);
+            model.addAttribute("pizzaSelected", pizza);
+            return "pizzas/pizza_detail";
+        } catch (BookNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza con id " + id + " non trovata.");
+        }
+
+
+        /*Optional<Pizza> p = pizzaRepository.findById(id);
         if(p.isPresent()) {
             model.addAttribute("pizzaSelected", p.get());
             return "pizzas/pizza_detail";
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza con id " + id + " non trovata.");
-        }
+        }*/
 
 
     }
