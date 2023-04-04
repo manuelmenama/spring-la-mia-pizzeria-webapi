@@ -18,6 +18,11 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col">
+            <!--<div  th:if="${message}">
+                <th:block  th:replace="~{/pizzas/fragments/fragment_alert :: alert(${message.type}, ${message.message})}">
+
+                </th:block>
+            </div>-->
             <div class="card" th:object="${pizzaSelected}">
                 <img th:src="*{imageLink}" class="card-img-top my-card-image" th:alt="*{name}">
                 <div class="card-body">

@@ -75,15 +75,20 @@ public class SpringLaMiaPizzaCrudController {
 
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("pizza") Pizza formPizza,
-                        BindingResult bindingResult) {
+                        BindingResult bindingResult,
+                        RedirectAttributes redirectAttributes) {
 
-        if (bindingResult.hasErrors()) {
+        boolean hasErrors = bindingResult.hasErrors();
+
+        if (hasErrors) {
             return "/pizzas/create";
+        } else {
+            pizzaService.createPizza(formPizza);
+            redirectAttributes.addFlashAttribute("message",
+                    new AlertMessage(AlertMessage.AlertMessageType.SUCCESS, "Elemento creato " + formPizza.getName() + " con successo."));
+            return "redirect:/pizzas";
         }
 
-        pizzaService.createPizza(formPizza);
-
-        return "redirect:/pizzas";
     }
 
     @GetMapping("/edit/{id}")
