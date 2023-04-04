@@ -85,7 +85,7 @@ public class SpringLaMiaPizzaCrudController {
         } else {
             pizzaService.createPizza(formPizza);
             redirectAttributes.addFlashAttribute("message",
-                    new AlertMessage(AlertMessage.AlertMessageType.SUCCESS, "Elemento creato " + formPizza.getName() + " con successo."));
+                    new AlertMessage(AlertMessage.AlertMessageType.SUCCESS, "Elemento " + formPizza.getName() + " creato con successo."));
             return "redirect:/pizzas";
         }
 
