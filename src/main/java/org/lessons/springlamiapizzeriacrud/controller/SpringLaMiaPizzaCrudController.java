@@ -2,6 +2,7 @@ package org.lessons.springlamiapizzeriacrud.controller;
 
 import jakarta.validation.Valid;
 import org.lessons.springlamiapizzeriacrud.exceptions.PizzaNotFoundException;
+import org.lessons.springlamiapizzeriacrud.model.AlertMessage;
 import org.lessons.springlamiapizzeriacrud.model.Pizza;
 import org.lessons.springlamiapizzeriacrud.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import java.util.List;
@@ -114,10 +116,20 @@ public class SpringLaMiaPizzaCrudController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id") Integer id) {
-        //try {
+    public String delete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) throws PizzaNotFoundException{
+        try {
             boolean success = pizzaService.deletePizzaById(id);
-        //}
+            if (success) {
+                redirectAttributes.addFlashAttribute("message",
+                        new AlertMessage(AlertMessage.AlertMessageType.SUCCESS, "Elemento " + id + " eliminato con successo."));
+            } else {
+                redirectAttributes.addFlashAttribute("message",
+                        new AlertMessage(AlertMessage.AlertMessageType.ERROR, "L'eliminazione dell'elemento con id " + id + " fallita."));
+            }
+        } catch (PizzaNotFoundException e) {
+            redirectAttributes.addFlashAttribute("message",
+                    new AlertMessage(AlertMessage.AlertMessageType.ERROR, "Elemento con id " + id + " non trovato"));
+        }
         return "redirect:/pizzas";
     }
 
