@@ -113,6 +113,12 @@ public class SpringLaMiaPizzaCrudController {
         }
     }
 
-
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Integer id) {
+        //try {
+            boolean success = pizzaService.deletePizzaById(id);
+        //}
+        return "redirect:/pizzas";
+    }
 
 }
