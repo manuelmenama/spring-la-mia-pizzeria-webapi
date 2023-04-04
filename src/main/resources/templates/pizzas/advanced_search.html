@@ -21,7 +21,7 @@
                         class="d-flex"
                         role="search"
                         method="get"
-                        th:action="@{/pizzas}">
+                        th:action="@{/advanced_search/search}">
                     <div class="me-3">
                         <label for="string-name" class="form-label">Search name: </label>
                             <input id="string-name" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
@@ -29,7 +29,7 @@
 
                     <div class="me-3">
                         <label for="string-name" class="form-label">Search price: </label>
-                        <input id="string-price" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="p">
+                        <input type="number" step="0.01" id="string-price" class="form-control me-2" placeholder="Search" aria-label="Search" name="p">
                     </div>
 
                     <div class="me-3">

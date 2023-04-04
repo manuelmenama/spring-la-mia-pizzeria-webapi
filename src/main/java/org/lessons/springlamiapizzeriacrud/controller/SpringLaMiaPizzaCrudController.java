@@ -1,9 +1,8 @@
 package org.lessons.springlamiapizzeriacrud.controller;
 
 import jakarta.validation.Valid;
-import org.lessons.springlamiapizzeriacrud.exceptions.BookNotFoundException;
+import org.lessons.springlamiapizzeriacrud.exceptions.PizzaNotFoundException;
 import org.lessons.springlamiapizzeriacrud.model.Pizza;
-import org.lessons.springlamiapizzeriacrud.repository.PizzaRepository;
 import org.lessons.springlamiapizzeriacrud.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,8 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.awt.print.Book;
-import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -45,13 +43,13 @@ public class SpringLaMiaPizzaCrudController {
     }
 
     @GetMapping("/pizza_detail/{id}")
-    public String pizza(Model model, @PathVariable(name = "id", required = false) int id){
+    public String pizza(Model model, @PathVariable(name = "id", required = false) int id) throws PizzaNotFoundException {
 
         try {
             Pizza pizza = pizzaService.getPizzaById(id);
             model.addAttribute("pizzaSelected", pizza);
             return "pizzas/pizza_detail";
-        } catch (BookNotFoundException e) {
+        } catch (PizzaNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza con id " + id + " non trovata.");
         }
 
@@ -84,6 +82,35 @@ public class SpringLaMiaPizzaCrudController {
         pizzaService.createPizza(formPizza);
 
         return "redirect:/pizzas";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Integer id, Model model) throws PizzaNotFoundException {
+
+        try {
+            Pizza pizzaToEdit = pizzaService.getPizzaById(id);
+            model.addAttribute("pizza", pizzaToEdit);
+            return "pizzas/update";
+        } catch (PizzaNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza con id " + id + " non trovata.");
+        }
+
+
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "pizzas/update";
+        }
+
+        try {
+            Pizza pizzaToUpdate = pizzaService.updatePizza(formPizza, id);
+            return "redirect:/pizzas/pizza_detail/" + id;
+        } catch (PizzaNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza con id " + id + " non trovata.");
+        }
     }
 
 

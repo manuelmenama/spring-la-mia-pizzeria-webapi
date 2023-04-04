@@ -1,6 +1,6 @@
 package org.lessons.springlamiapizzeriacrud.service;
 
-import org.lessons.springlamiapizzeriacrud.exceptions.BookNotFoundException;
+import org.lessons.springlamiapizzeriacrud.exceptions.PizzaNotFoundException;
 import org.lessons.springlamiapizzeriacrud.model.Pizza;
 import org.lessons.springlamiapizzeriacrud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +30,18 @@ public class PizzaService {
 
     }
 
+    public Pizza updatePizza(Pizza formPizza, Integer id) throws PizzaNotFoundException{
+        Pizza pizzaToUpdate = getPizzaById(id);
+        pizzaToUpdate.setName(formPizza.getName());
+        pizzaToUpdate.setPrice(formPizza.getPrice());
+        pizzaToUpdate.setImageLink(formPizza.getImageLink());
+        pizzaToUpdate.setDescription(formPizza.getDescription());
+        pizzaToUpdate.setUpdatedAt(LocalDateTime.now());
+
+        return pizzaRepository.save(pizzaToUpdate);
+
+    }
+
     public List<Pizza> getAllPizzas() {
         return pizzaRepository.findAll();
     }
@@ -43,7 +55,7 @@ public class PizzaService {
         if (result.isPresent()) {
             return result.get();
         } else {
-            throw new BookNotFoundException(Integer.toString(id));
+            throw new PizzaNotFoundException(Integer.toString(id));
         }
     }
 }

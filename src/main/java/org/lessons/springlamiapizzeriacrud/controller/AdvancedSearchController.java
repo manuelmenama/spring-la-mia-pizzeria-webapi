@@ -20,17 +20,33 @@ public class AdvancedSearchController {
     PizzaRepository pizzaRepository;
 
     @GetMapping
+    public String advancedPage() {
+        return "/pizzas/advanced_search";
+    }
+
+    @GetMapping("/search")
     public String advancedSearch(
-            @PathVariable(name = "q") Optional<String> keywordName,
             @PathVariable(name = "d") Optional<String> keywordDescription,
-            @PathVariable(name = "p") Optional<BigDecimal> price,
+            //@PathVariable(name = "p") Optional<BigDecimal> price,
             Model model
             ) {
+
+        /*if (keywordDescription.isEmpty() && keywordName.isEmpty() && price == null) {
+            pizzaList = pizzaRepository.findAll();
+
+        } else {*/
+
         List<Pizza> pizzaList;
-        if (keywordDescription.isEmpty() && keywordName.isEmpty() && price == null) {
+
+        if (keywordDescription.isPresent()) {
+            pizzaList = pizzaRepository.findByDescriptionLike(keywordDescription.get());
+            model.addAttribute("pizzaList", pizzaList);
+            return "redirect:/pizzas";
+        } else {
             pizzaList = pizzaRepository.findAll();
             model.addAttribute("pizzaList", pizzaList);
+            return "redirect:/pizzas";
         }
-        return "/pizzas/advanced_search";
+
     }
 }

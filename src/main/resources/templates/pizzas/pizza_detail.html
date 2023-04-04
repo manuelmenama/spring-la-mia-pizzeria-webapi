@@ -25,6 +25,9 @@
                     <p class="card-text" th:text="*{description}"></p>
                     <p class="card-text">Prezzo: <strong>[[*{price}]]</strong> €</p>
                     <a th:href="@{/pizzas}" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i></a>
+                    <a th:href="|/pizzas/edit/*{id}|" class="btn btn-warning">
+                        <i class="fa-solid fa-pen-ruler"></i>
+                    </a>
                 </div>
             </div>
         </div>

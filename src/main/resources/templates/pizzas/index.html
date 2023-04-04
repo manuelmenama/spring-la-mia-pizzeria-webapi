@@ -43,6 +43,9 @@
                                 <a th:href="|/pizzas/pizza_detail/*{id}|" class="btn btn-primary">
                                     <i class="fa-solid fa-pizza-slice"></i>
                                 </a>
+                                <a th:href="|/pizzas/edit/*{id}|" class="btn btn-warning">
+                                    <i class="fa-solid fa-pen-ruler"></i>
+                                </a>
                             </td>
                         </tr>
                         <tr th:if="${pizzaList.isEmpty()}">
