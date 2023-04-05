@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "pizzas")
@@ -33,6 +34,9 @@ public class Pizza {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "pizza")
+    private List<SpecialOffer> specialOffers;
 
     public Pizza() {
     }
@@ -102,5 +106,11 @@ public class Pizza {
         this.updatedAt = updatedAt;
     }
 
+    public List<SpecialOffer> getSpecialOffers() {
+        return specialOffers;
+    }
 
+    public void setSpecialOffers(List<SpecialOffer> specialOffers) {
+        this.specialOffers = specialOffers;
+    }
 }
