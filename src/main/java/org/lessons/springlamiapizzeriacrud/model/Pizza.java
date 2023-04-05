@@ -39,6 +39,7 @@ public class Pizza {
     private List<SpecialOffer> specialOffers;
 
     public Pizza() {
+        super();
     }
 
     public Pizza(String name, String description, BigDecimal price, String imageLink, LocalDateTime createdAt, LocalDateTime updatedAt) {

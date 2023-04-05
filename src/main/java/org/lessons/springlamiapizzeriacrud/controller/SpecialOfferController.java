@@ -47,11 +47,11 @@ public class SpecialOfferController {
         return "/special_offers/create";
     }
     @PostMapping("/create")
-    public String create(@RequestParam(name = "pizzaId") Integer id, @Valid @ModelAttribute SpecialOffer formSpecialOffer, BindingResult bindingResult) {
+    public String create(@Valid @ModelAttribute SpecialOffer formSpecialOffer, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             return "/special_offers/create";
         }
         SpecialOffer createdSpecialOffer = specialOfferService.create(formSpecialOffer);
-        return "redirect:/pizzas/pizza_detail/" + id;
+        return "redirect:/pizzas/pizza_detail/" + Integer.toString(createdSpecialOffer.getPizza().getId());
     }
 }

@@ -33,21 +33,9 @@ public class SpecialOffer {
     private LocalDateTime updatedAt;
 
     @ManyToOne
-    @JoinColumn(name = "pizza_id")
+    @NotNull
     private Pizza pizza;
 
-    public SpecialOffer() {
-    }
-
-    public SpecialOffer(Integer id, String title, LocalDateTime expireDate, LocalDateTime startingDate, LocalDateTime createdAt, LocalDateTime updatedAt, Pizza pizza) {
-        this.id = id;
-        this.title = title;
-        this.expireDate = expireDate;
-        this.startingDate = startingDate;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.pizza = pizza;
-    }
 
     public Integer getId() {
         return id;

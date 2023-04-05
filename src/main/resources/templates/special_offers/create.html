@@ -24,8 +24,9 @@
                 method="post"
                 class="row gy-3"
                 th:object="${specialOffer}"
-                th:action="@{|/special_offer/create?pizzaId=${specialOffer.pizza}|}"
+                th:action="@{/special_offer/create}"
             >
+            <input type="hidden" th:field="*{pizza}">
             <div class="col-12">
                 <label for="special-offer-title">Nome dell'offerta</label>
                 <input type="text" id="special-offer-title" class="form-control"  th:field="*{title}" th:errorClass="is-invalid">
