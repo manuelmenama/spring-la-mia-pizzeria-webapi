@@ -54,4 +54,18 @@ public class SpecialOfferController {
         SpecialOffer createdSpecialOffer = specialOfferService.create(formSpecialOffer);
         return "redirect:/pizzas/pizza_detail/" + Integer.toString(createdSpecialOffer.getPizza().getId());
     }
+
+    @GetMapping("/edit")
+    public String edit(@RequestParam(name = "offerId") Integer id, Model model) {
+
+        try {
+            SpecialOffer specialOfferToEdit = specialOfferService.getSpecialOfferById(id);
+            model.addAttribute("specialOffer", specialOfferToEdit);
+            return "/special_offers/edit";
+        } catch (PizzaNotFoundException e) {
+            throw new  ResponseStatusException(HttpStatus.NOT_FOUND, "Offerta con id " + id + " non trovata.");
+        }
+
+    }
+
 }
