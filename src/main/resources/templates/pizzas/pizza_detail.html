@@ -33,6 +33,41 @@
                     <a th:href="|/pizzas/edit/*{id}|" class="btn btn-warning">
                         <i class="fa-solid fa-pen-ruler"></i>
                     </a>
+                    <hr>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <p class="card-text mt-3"><strong>Offerte</strong></p>
+                        <a th:href="@{/special_offer/create(pizzaId=${pizzaSelected.id})}" class="btn btn-primary" title="Add Offer">
+                            <i class="fa-solid fa-plus"></i>
+                        </a>
+                    </div>
+                    <hr>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Offerta</th>
+                            <th scope="col">Inizio</th>
+                            <th scope="col">Scadenza</th>
+                            <th scope="col">Azioni</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${!pizzaSelected.specialOffers.isEmpty()}" th:each="offer : *{specialOffers}" th:object="${offer}">
+                            <td scope="row" th:text="${offer.id}"></th>
+                            <td th:text="${offer.title}"></td>
+                            <td th:text="${#temporals.format(offer.startingDate, 'dd/MM/yyyy HH:mm')}"></td>
+                            <td th:text="${#temporals.format(offer.expireDate, 'dd/MM/yyyy HH:mm')}"></td>
+                            <td>@mdo</td>
+
+                        </tr>
+                        <tr th:if="${pizzaSelected.specialOffers.isEmpty()}">
+                            <th scope="row" colspan="5">
+                                Non sono presenti offerte...
+                            </th>
+                        </tr>
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

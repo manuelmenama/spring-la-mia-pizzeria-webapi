@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link th:replace="~{/fragments/fragment_head :: style_resources}">
+
+    <title>Create new offer</title>
+</head>
+<body>
+
+    <th:block th:replace="~{/fragments/fragment_navbar :: navbar('', true)}"></th:block>
+
+    <div class="container mt-5">
+        <h1>
+            Aggiungi una nuova offerta
+        </h1>
+        <form
+
+                id="form-offers"
+                method="post"
+                class="row gy-3"
+                th:object="${specialOffer}"
+                th:action="@{|/special_offer/create?pizzaId=${specialOffer.pizza}|}"
+            >
+            <div class="col-12">
+                <label for="special-offer-title">Nome dell'offerta</label>
+                <input type="text" id="special-offer-title" class="form-control"  th:field="*{title}" th:errorClass="is-invalid">
+                <div th:if="${#fields.hasErrors('title')}" class="invalid-feedback">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('title')}" th:text="${error}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-6">
+                <label for="offer-starting-date">Data inizio</label>
+                <input type="datetime-local" id="offer-starting-date" class="form-control"  th:field="*{startingDate}" th:errorClass="is-invalid">
+                <div th:if="${#fields.hasErrors('startingDate')}" class="invalid-feedback">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('startingDate')}" th:text="${error}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-6">
+                <label for="offer-expire-date">Data fine</label>
+                <input type="datetime-local" id="offer-expire-date" class="form-control"  th:field="*{expireDate}" th:errorClass="is-invalid">
+                <div th:if="${#fields.hasErrors('expireDate')}" class="invalid-feedback">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('expireDate')}" th:text="${error}"></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <button class="btn btn-primary" type="submit">Salva</button>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>
