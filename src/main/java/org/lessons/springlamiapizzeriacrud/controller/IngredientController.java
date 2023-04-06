@@ -1,16 +1,16 @@
 package org.lessons.springlamiapizzeriacrud.controller;
 
 import jakarta.validation.Valid;
+import org.lessons.springlamiapizzeriacrud.exceptions.IngredientNotFoundException;
 import org.lessons.springlamiapizzeriacrud.model.Ingredient;
 import org.lessons.springlamiapizzeriacrud.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/ingredients")
@@ -35,5 +35,17 @@ public class IngredientController {
         }
         ingredientService.create(ingredient);
         return "redirect:/ingredients";
+    }
+
+    @GetMapping("/{id}")
+    public String edit(@PathVariable("id") Integer id, Model model) throws IngredientNotFoundException {
+        Optional<Ingredient> ingredientToUpdate = ingredientService.getIngredientById(id);
+        if (ingredientToUpdate.isPresent()) {
+            model.addAttribute("newIngredient", ingredientToUpdate);
+            model.addAttribute("allIngredient", ingredientService.findAllIngredients());
+            return "/ingredients/index";
+        } else {
+            throw new IngredientNotFoundException("Ingrediente con id " + id + " non trovato");
+        }
     }
 }

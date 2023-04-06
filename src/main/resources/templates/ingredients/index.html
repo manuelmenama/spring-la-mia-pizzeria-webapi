@@ -24,12 +24,28 @@
                     </div>
                     <ul class="list-group list-group-flush">
                         <li
-                                class="list-group-item"
+                                class="list-group-item d-flex"
                                 th:each="ingredient : ${allIngredient}"
                         >
-                            <h6 th:text="${ingredient.name}"></h6>
+                            <div class="me-2">
+                                <a th:href="@{|/ingredients/${ingredient.id}|}" class="btn btn-outline-primary btn-sm">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
 
-                            <p th:text="${ingredient.description}"></p>
+                            </div>
+                            <div class="me-2">
+                                <a href="#" class="btn btn-outline-danger btn-sm">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+
+                            </div>
+                            <div>
+                                <h6 th:text="${ingredient.name}"></h6>
+
+                                <p th:text="${ingredient.description}"></p>
+                            </div>
+
+
                         </li>
 
                     </ul>
@@ -40,12 +56,14 @@
                 <div class="container">
                     <h5>Creazione o modifica</h5>
                     <form
+                            th:object="${newIngredient}"
                             class="row gy-3"
                             method="post"
-                            th:action="@{/ingredients/create}"
-                            th:object="${newIngredient}"
+                            th:action="@{/ingredients/create'}"
+
                     >
                         <div class="col-12">
+
                             <label for="link-image">Image link</label>
                             <input type="text" id="link-image" class="form-control" th:field="*{name}">
                         </div>
