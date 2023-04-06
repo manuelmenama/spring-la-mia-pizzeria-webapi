@@ -6,6 +6,7 @@ import org.lessons.springlamiapizzeriacrud.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -65,5 +66,18 @@ public class Ingredient {
 
     public void setPizzas(List<Pizza> pizzas) {
         this.pizzas = pizzas;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ingredient that = (Ingredient) o;
+        return Objects.equals(name, that.name) && Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description);
     }
 }

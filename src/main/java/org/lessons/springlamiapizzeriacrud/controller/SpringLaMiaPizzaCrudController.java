@@ -77,18 +77,23 @@ public class SpringLaMiaPizzaCrudController {
 
     @GetMapping("/create")
     public String create(Model model) {
+
         model.addAttribute("pizza", new Pizza());
+        model.addAttribute("allIngredients", ingredientService.findAllIngredients());
+
         return "pizzas/create";
     }
 
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("pizza") Pizza formPizza,
                         BindingResult bindingResult,
-                        RedirectAttributes redirectAttributes) {
+                        RedirectAttributes redirectAttributes,
+                        Model model) {
 
         boolean hasErrors = bindingResult.hasErrors();
 
         if (hasErrors) {
+            model.addAttribute("allIngredients", ingredientService.findAllIngredients());
             return "/pizzas/create";
         } else {
             pizzaService.createPizza(formPizza);
@@ -105,6 +110,7 @@ public class SpringLaMiaPizzaCrudController {
         try {
             Pizza pizzaToEdit = pizzaService.getPizzaById(id);
             model.addAttribute("pizza", pizzaToEdit);
+            model.addAttribute("allIngredients", ingredientService.findAllIngredients());
             return "pizzas/update";
         } catch (PizzaNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza con id " + id + " non trovata.");
@@ -114,9 +120,10 @@ public class SpringLaMiaPizzaCrudController {
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
+    public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("allIngredients", ingredientService.findAllIngredients());
             return "pizzas/update";
         }
 
