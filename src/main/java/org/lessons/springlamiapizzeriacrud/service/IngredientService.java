@@ -15,4 +15,11 @@ public class IngredientService {
     public List<Ingredient> findAllIngredients() {
         return ingredientRepository.findAll();
     }
+
+    public Ingredient create(Ingredient formIngredient) {
+        Ingredient ingredientToCreate = new Ingredient();
+        ingredientToCreate.setName(formIngredient.getName());
+        ingredientToCreate.setDescription(formIngredient.getDescription());
+        return ingredientRepository.save(ingredientToCreate);
+    }
 }

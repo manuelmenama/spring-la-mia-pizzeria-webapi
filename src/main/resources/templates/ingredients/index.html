@@ -43,7 +43,7 @@
                             class="row gy-3"
                             method="post"
                             th:action="@{/ingredients/create}"
-                            th:object="newIngredient"
+                            th:object="${newIngredient}"
                     >
                         <div class="col-12">
                             <label for="link-image">Image link</label>
