@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.lessons.springlamiapizzeriacrud.exceptions.PizzaNotFoundException;
 import org.lessons.springlamiapizzeriacrud.model.AlertMessage;
 import org.lessons.springlamiapizzeriacrud.model.Pizza;
+import org.lessons.springlamiapizzeriacrud.service.IngredientService;
 import org.lessons.springlamiapizzeriacrud.service.PizzaService;
 import org.lessons.springlamiapizzeriacrud.service.SpecialOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class SpringLaMiaPizzaCrudController {
 
     @Autowired
     SpecialOfferService specialOfferService;
+
+    @Autowired
+    IngredientService ingredientService;
 
     @GetMapping
     public String home(Model model, @RequestParam(name = "q") Optional<String> keyword) {

@@ -7,7 +7,7 @@ table img.my-thumb{
 }
 
 img.my-card-image{
-    height: 300px;
+    height: 150px;
     object-fit: cover;
 }
 
