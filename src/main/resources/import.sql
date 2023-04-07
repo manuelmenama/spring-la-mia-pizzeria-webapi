@@ -31,7 +31,11 @@ INSERT INTO db_pizzeria.ingredient_pizza (pizza_id, ingredient_id) VALUES(3, 6);
 INSERT INTO db_pizzeria.ingredient_pizza (pizza_id, ingredient_id) VALUES(3, 7);
 INSERT INTO db_pizzeria.ingredient_pizza (pizza_id, ingredient_id) VALUES(3, 8);
 -- insert into users
-
+INSERT INTO db_pizzeria.users (email, first_name, password, second_name) VALUES('golia@email.com', 'Golia', '{noop}golia', 'De Golia');
+INSERT INTO db_pizzeria.users (email, first_name, password, second_name) VALUES('davide@email.com', 'Davide', '{noop}davide', 'De Davide');
 -- insert into role
-
+INSERT INTO db_pizzeria.roles (name) VALUES('ADMIN');
+INSERT INTO db_pizzeria.roles (name) VALUES('USER');
 --insert into role_user
+INSERT INTO db_pizzeria.role_user (user_id, role_id) VALUES(1, 1);
+INSERT INTO db_pizzeria.role_user (user_id, role_id) VALUES(2, 2);
