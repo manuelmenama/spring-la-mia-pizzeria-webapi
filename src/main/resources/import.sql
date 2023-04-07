@@ -30,3 +30,8 @@ INSERT INTO db_pizzeria.ingredient_pizza (pizza_id, ingredient_id) VALUES(3, 5);
 INSERT INTO db_pizzeria.ingredient_pizza (pizza_id, ingredient_id) VALUES(3, 6);
 INSERT INTO db_pizzeria.ingredient_pizza (pizza_id, ingredient_id) VALUES(3, 7);
 INSERT INTO db_pizzeria.ingredient_pizza (pizza_id, ingredient_id) VALUES(3, 8);
+-- insert into users
+
+-- insert into role
+
+--insert into role_user
