@@ -28,7 +28,7 @@
                                 th:each="ingredient : ${allIngredient}"
                         >
                             <div class="me-2">
-                                <a th:href="@{|/ingredients/${ingredient.id}|}" class="btn btn-outline-primary btn-sm">
+                                <a th:href="@{/ingredients(idParam=${ingredient.id})}" class="btn btn-outline-primary btn-sm">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
 

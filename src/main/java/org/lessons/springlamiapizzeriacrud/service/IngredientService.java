@@ -24,7 +24,8 @@ public class IngredientService {
         return ingredientRepository.save(ingredientToCreate);
     }
 
-    public Optional<Ingredient> getIngredientById(Integer id) {
-        return ingredientRepository.findById(id);
+    public Ingredient getIngredientById(Integer id) {
+
+        return ingredientRepository.findById(id).orElseThrow(() -> new RuntimeException());
     }
 }

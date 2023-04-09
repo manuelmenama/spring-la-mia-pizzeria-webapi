@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -25,7 +26,7 @@
             </div>
 
 
-            <a th:href="@{/pizzas/create}" class="btn btn-primary"><i class="fa-solid fa-plus"></i></a>
+            <a th:href="@{/pizzas/create}" class="btn btn-primary"  sec:authorize="hasAuthority('ADMIN')"><i class="fa-solid fa-plus"></i></a>
         </div>
 
         <div class="row">
@@ -50,10 +51,10 @@
                                 <a th:href="|/pizzas/pizza_detail/*{id}|" class="btn btn-primary me-1">
                                     <i class="fa-solid fa-pizza-slice"></i>
                                 </a>
-                                <a th:href="|/pizzas/edit/*{id}|" class="btn btn-warning me-1">
+                                <a th:href="|/pizzas/edit/*{id}|" class="btn btn-warning me-1"  sec:authorize="hasAuthority('ADMIN')">
                                     <i class="fa-solid fa-pen-ruler"></i>
                                 </a>
-                                <form th:action="@{|/pizzas/delete/*{id}|}">
+                                <form th:action="@{|/pizzas/delete/*{id}|}"  sec:authorize="hasAuthority('ADMIN')">
                                     <button type="submit" class="btn btn-danger">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </button>

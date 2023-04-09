@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -50,18 +51,18 @@
 
                     <p class="card-text">Prezzo: <strong>[[*{price}]]</strong> €</p>
                     <a th:href="@{/pizzas}" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i></a>
-                    <a th:href="|/pizzas/edit/*{id}|" class="btn btn-warning">
+                    <a th:href="|/pizzas/edit/*{id}|" class="btn btn-warning" sec:authorize="hasAuthority('ADMIN')">
                         <i class="fa-solid fa-pen-ruler"></i>
                     </a>
-                    <hr>
-                    <div class="d-flex align-items-center justify-content-between">
+                    <hr  sec:authorize="hasAuthority('ADMIN')">
+                    <div class="d-flex align-items-center justify-content-between"  sec:authorize="hasAuthority('ADMIN')">
                         <p class="card-text mt-3"><strong>Offerte</strong></p>
                         <a th:href="@{/special_offer/create(pizzaId=${pizzaSelected.id})}" class="btn btn-primary" title="Add Offer">
                             <i class="fa-solid fa-plus"></i>
                         </a>
                     </div>
-                    <hr>
-                    <table class="table">
+                    <hr  sec:authorize="hasRole('ADMIN')">
+                    <table class="table"  sec:authorize="hasAuthority('ADMIN')">
                         <thead>
                         <tr>
                             <th scope="col">Id</th>
@@ -84,7 +85,7 @@
                             </td>
 
                         </tr>
-                        <tr th:if="${pizzaSelected.specialOffers.isEmpty()}">
+                        <tr th:if="${pizzaSelected.specialOffers.isEmpty()}"  sec:authorize="hasAuthority('ADMIN')">
                             <th scope="row" colspan="5">
                                 Non sono presenti offerte...
                             </th>

@@ -19,9 +19,16 @@ public class IngredientController {
     IngredientService ingredientService;
 
     @GetMapping
-    public String index(Model model) {
+    public String index(@RequestParam Optional<Integer> idParam, Model model) {
         model.addAttribute("allIngredient", ingredientService.findAllIngredients());
-        model.addAttribute("newIngredient", new Ingredient());
+        Ingredient ingredientToUpdate = null;
+        if (idParam.isPresent()) {
+            ingredientToUpdate = ingredientService.getIngredientById(idParam.get());
+            model.addAttribute("newIngredient", ingredientToUpdate);
+        } else {
+            model.addAttribute("newIngredient", new Ingredient());
+        }
+
         return "/ingredients/index";
     }
 
@@ -37,7 +44,7 @@ public class IngredientController {
         return "redirect:/ingredients";
     }
 
-    @GetMapping("/{id}")
+ /*   @GetMapping("/{id}")
     public String edit(@PathVariable("id") Integer id, Model model) throws IngredientNotFoundException {
         Optional<Ingredient> ingredientToUpdate = ingredientService.getIngredientById(id);
         if (ingredientToUpdate.isPresent()) {
@@ -47,5 +54,5 @@ public class IngredientController {
         } else {
             throw new IngredientNotFoundException("Ingrediente con id " + id + " non trovato");
         }
-    }
+    }*/
 }
