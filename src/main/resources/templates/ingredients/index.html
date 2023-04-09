@@ -59,10 +59,11 @@
                             th:object="${newIngredient}"
                             class="row gy-3"
                             method="post"
-                            th:action="@{/ingredients/create'}"
+                            th:action="@{/ingredients/create}"
 
 
                     >
+                        <input type="hidden" th:field="*{id}">
                         <div class="col-12">
 
                             <label for="link-image">Image link</label>

@@ -40,7 +40,13 @@ public class IngredientController {
             model.addAttribute("allIngredient", ingredientService.findAllIngredients());
             return "/ingredients/index";
         }
-        ingredientService.create(ingredient);
+
+        if (ingredient.getId() != null) {
+            ingredientService.update(ingredient);
+        } else {
+            ingredientService.create(ingredient);
+        }
+
         return "redirect:/ingredients";
     }
 
