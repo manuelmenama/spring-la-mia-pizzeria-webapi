@@ -2,6 +2,7 @@ package org.lessons.springlamiapizzeriacrud.controller;
 
 import jakarta.validation.Valid;
 import org.lessons.springlamiapizzeriacrud.exceptions.IngredientNotFoundException;
+import org.lessons.springlamiapizzeriacrud.model.AlertMessage;
 import org.lessons.springlamiapizzeriacrud.model.Ingredient;
 import org.lessons.springlamiapizzeriacrud.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,8 +53,20 @@ public class IngredientController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id") Integer id) throws RuntimeException{
-        boolean success = ingredientService.delete(id);
+    public String delete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) throws RuntimeException{
+        try {
+            boolean success = ingredientService.delete(id);
+            if (success) {
+                redirectAttributes.addFlashAttribute("message",
+                        new AlertMessage(AlertMessage.AlertMessageType.SUCCESS, "Elemento " + id + " eliminato con successo."));
+            } else {
+                redirectAttributes.addFlashAttribute("message",
+                        new AlertMessage(AlertMessage.AlertMessageType.ERROR, "L'eliminazione dell'elemento con id " + id + " fallita."));
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("message",
+                    new AlertMessage(AlertMessage.AlertMessageType.ERROR, "Elemento con id " + id + " non trovato"));
+        }
         return "redirect:/ingredients";
     }
 

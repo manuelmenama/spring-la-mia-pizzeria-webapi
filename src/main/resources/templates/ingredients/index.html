@@ -15,6 +15,9 @@
     <th:block th:replace="~{/fragments/fragment_navbar :: navbar('ingredients', false)}"></th:block>
 
     <div class="container mt-5">
+        <th:block  th:replace="~{/fragments/fragment_alert :: alert(${message.type}, ${message.message})}">
+
+        </th:block>
         <div class="row">
             <div class="col-6">
                 <!--lista ingredienti-->
