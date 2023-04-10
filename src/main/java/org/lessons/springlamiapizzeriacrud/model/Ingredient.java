@@ -2,6 +2,8 @@ package org.lessons.springlamiapizzeriacrud.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.lessons.springlamiapizzeriacrud.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,6 +26,7 @@ public class Ingredient {
     private String description;
 
     @ManyToMany(mappedBy = "ingredients")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Pizza> pizzas;
 
     public Ingredient() {

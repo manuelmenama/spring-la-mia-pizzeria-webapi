@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
 
@@ -47,6 +48,12 @@ public class IngredientController {
             ingredientService.create(ingredient);
         }
 
+        return "redirect:/ingredients";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Integer id) throws RuntimeException{
+        boolean success = ingredientService.delete(id);
         return "redirect:/ingredients";
     }
 

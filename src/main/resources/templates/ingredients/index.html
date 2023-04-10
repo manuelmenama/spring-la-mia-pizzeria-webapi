@@ -33,12 +33,14 @@
                                 </a>
 
                             </div>
-                            <div class="me-2">
-                                <a href="#" class="btn btn-outline-danger btn-sm">
+                            <form
+                                    th:action="@{|/ingredients/delete/${ingredient.id}|}"
+                                    class="me-2">
+                                <button class="btn btn-outline-danger btn-sm" type="submit">
                                     <i class="fa-solid fa-trash-can"></i>
-                                </a>
+                                </button>
 
-                            </div>
+                            </form>
                             <div>
                                 <h6 th:text="${ingredient.name}"></h6>
 

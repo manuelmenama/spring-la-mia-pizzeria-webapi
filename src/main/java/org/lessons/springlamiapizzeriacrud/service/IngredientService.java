@@ -36,4 +36,14 @@ public class IngredientService {
         ingredientToUpdate.setDescription(formIngredient.getDescription());
         return ingredientRepository.save(ingredientToUpdate);
     }
+
+    public boolean delete(Integer id) {
+        ingredientRepository.findById(id).orElseThrow(() -> new RuntimeException());
+        try {
+            ingredientRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
