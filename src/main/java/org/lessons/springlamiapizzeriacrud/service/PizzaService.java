@@ -83,7 +83,7 @@ public class PizzaService {
         }
     }
 
-    public boolean deletePizzaById(Integer id) {
+    public boolean deletePizzaById(Integer id) throws  PizzaNotFoundException{
         pizzaRepository.findById(id).orElseThrow(() -> new PizzaNotFoundException(Integer.toString(id)));
         try {
             pizzaRepository.deleteById(id);
