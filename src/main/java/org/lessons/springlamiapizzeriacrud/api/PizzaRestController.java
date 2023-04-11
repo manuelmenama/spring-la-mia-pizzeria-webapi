@@ -1,5 +1,6 @@
 package org.lessons.springlamiapizzeriacrud.api;
 
+import jakarta.validation.Valid;
 import org.lessons.springlamiapizzeriacrud.exceptions.PizzaNotFoundException;
 import org.lessons.springlamiapizzeriacrud.model.Pizza;
 import org.lessons.springlamiapizzeriacrud.service.PizzaService;
@@ -35,6 +36,24 @@ public class PizzaRestController {
             return pizzaService.getPizzaById(id);
         } catch (PizzaNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping
+    public Pizza pizzaCreated(@Valid @RequestBody Pizza pizza) {
+        return pizzaService.createPizza(pizza);
+    }
+
+    @PutMapping("/{id}")
+    public Pizza pizzaUpdated(@PathVariable Integer id, @Valid @RequestBody Pizza pizza) {
+
+
+        try {
+            return pizzaService.updatePizza(pizza, id);
+        } catch (PizzaNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
 
