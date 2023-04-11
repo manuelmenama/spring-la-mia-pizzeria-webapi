@@ -52,7 +52,7 @@ public class PizzaService {
         return pizzaRepository.findByNameContainingIgnoreCase(keyword);
     }
 
-    public Pizza getPizzaById(Integer id) {
+    public Pizza getPizzaById(Integer id) throws PizzaNotFoundException{
         Optional<Pizza> result = pizzaRepository.findById(id);
         if (result.isPresent()) {
             return result.get();
