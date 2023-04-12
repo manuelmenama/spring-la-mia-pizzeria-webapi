@@ -2,6 +2,8 @@
 //localhost:8080/api/v1/pizzas
 const BASE_URL = "http://localhost:8080/api/v1/pizzas";
 const contentElement = document.getElementById('content');
+const toggleForm = document.getElementById('toggle-form');
+const pizzaForm = document.getElementById('pizza-form');
 
 //Api
 const getBookList = async() => {
@@ -9,7 +11,23 @@ const getBookList = async() => {
   return response;
 };
 
+const postPizza = async(jsonData) => {
+  const fetchOption = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: jsonData,
+  };
+  const response = await fetch(BASE_URL, fetchOption);
+  return response;
+};
+
 //Dom manipulation
+const toggleFormVisibility = () => {
+  document.getElementById('form').classList.toggle('d-none');
+};
+
 const createIngredientList = (ingredients) => {
   let ingredientWrapper = `<p>`;
   ingredients.forEach(element => {
@@ -71,5 +89,35 @@ const loadData = async() => {
   }
 };
 
+const savePizza = async(event) => {
+  //prevent default
+  event.preventDefault();
+  
+  //read input value
+  const formData = new FormData(event.target);
+  const formDataObject = Object.fromEntries(formData.entries());
+
+  //validation
+
+  //produce a json
+  const formDataJson = JSON.stringify(formDataObject);
+
+  //send ajax request
+  const response = await postPizza(formDataJson);
+
+  //parse response
+  const responseBody = await response.json();
+  if(response.ok) {
+    loadData();
+    event.target.reset();
+  } else{
+    console.log("ERROR!");
+    console.log(response.status);
+    console.log(responseBody);
+  }
+};
+
 //Global code
+toggleForm.addEventListener("click", toggleFormVisibility);
+pizzaForm.addEventListener("submit", savePizza);
 loadData();

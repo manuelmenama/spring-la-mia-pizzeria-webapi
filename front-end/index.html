@@ -11,17 +11,49 @@
   integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
   crossorigin="anonymous"/>
 
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css' integrity='sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==' crossorigin='anonymous'/>
+
   <title>Client pizza</title>
-
-
 
 </head>
 <body>
 
   <div class="container">
 
-    <h1>Lista delle pizze</h1>
-
+    <div class="d-flex justify-content-between align-items-center my-5">
+      <h1>Lista delle pizze</h1>
+      <button class="btn btn-outline-primary" id="toggle-form"><i class="fa-solid fa-plus"></i></button>
+    </div>
+    
+    <section id="form" class="mb-5 d-none">
+      <form action="#" id="pizza-form" class="row gy-2">
+        <div class="col-6">
+          <!-- name -->
+          <label for="name" class="form-label">Nome pizza</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Nome della pizza...">
+        </div>
+        <div class="col-6">
+          <!-- price -->
+          <label for="price" class="form-label">Prezzo</label>
+          <input type="number" step="0.01" name="price" class="form-control" id="price">
+        </div>
+        <div class="col-12">
+          <!-- image -->
+          <label for="image-link" class="form-label">URL immagine</label>
+          <input type="text" class="form-control" id="image-link" name="imageLink" placeholder="Url dell'immagine...">
+        </div>
+        <div class="col-12">
+          <!-- description -->
+          <label for="description">Descrizione</label>
+          <textarea id="description" rows="3" class="form-control"  name="description"></textarea>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-outline-primary">
+            Save
+          </button>
+        </div>
+      </form>
+    </section>
 
     <section id="content"></section>
 

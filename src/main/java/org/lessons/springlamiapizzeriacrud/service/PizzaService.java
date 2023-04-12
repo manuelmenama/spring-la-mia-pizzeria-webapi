@@ -43,10 +43,13 @@ public class PizzaService {
 
     private Set<Ingredient> getPizzaIngredients(Pizza formPizza) {
         Set<Ingredient> formIngredient = new HashSet<>();
-        for (Ingredient i:
-             formPizza.getIngredients()) {
-            formIngredient.add(ingredientRepository.findById(i.getId()).orElseThrow());
+        if (formPizza.getIngredients() != null){
+            for (Ingredient i:
+                    formPizza.getIngredients()) {
+                formIngredient.add(ingredientRepository.findById(i.getId()).orElseThrow());
+            }
         }
+
         return formIngredient;
     }
 
