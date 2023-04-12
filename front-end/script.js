@@ -23,7 +23,21 @@ const postPizza = async(jsonData) => {
   return response;
 };
 
+const deletePizzaById = async(pizzaId) => {
+  const response = fetch(BASE_URL + "/" + pizzaId, {method: 'DELETE'});
+  return response;
+};
+
 //Dom manipulation
+const createDeleteButton = (pizza) => {
+
+  return `
+  <button class="btn btn-danger" onClick="deletePizza(${pizza.id})">
+    <i class="fa-regular fa-trash-can"></i>
+  </button>
+`;
+};
+ 
 const toggleFormVisibility = () => {
   document.getElementById('form').classList.toggle('d-none');
 };
@@ -44,9 +58,12 @@ const createPizzaCard = (item) => {
     <div class="col-4">
       <div class="card" style="width: 18rem;">
         <div class="card-header">
-          <h5>
-            ${item.name}
-          </h5>  
+          <div class="d-flex justify-content-between align-items-center">
+            <h5>
+              ${item.name}
+            </h5>
+            ${createDeleteButton(item)}
+          </div>
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">Descrizione: ${item.description}</li>
@@ -82,8 +99,9 @@ const loadData = async() => {
   if(response.ok) {
     response.json().then((data) => {
       contentElement.innerHTML = createPizzaWrapper(data);
-
+      
     });
+    
   } else {
     console.log("Error!");
   }
@@ -114,6 +132,20 @@ const savePizza = async(event) => {
     console.log("ERROR!");
     console.log(response.status);
     console.log(responseBody);
+  }
+};
+
+const deletePizza = async(pizzaId) => {
+  console.log('delete pizza ' + pizzaId);
+  //call delete api
+  const response = await deletePizzaById(pizzaId);
+  if (response.ok) {
+    // reload book list
+    loadData();
+  } else {
+    // handle error
+    console.log('ERROR');
+    console.log(response.status);
   }
 };
 
